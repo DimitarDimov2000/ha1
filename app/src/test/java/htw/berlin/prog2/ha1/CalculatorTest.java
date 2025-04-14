@@ -92,7 +92,7 @@ class CalculatorTest {
     //TODO hier weitere Tests erstellen
     @Test
     @DisplayName("should display result after subtracting two positive multi-digit numbers")
-    void testSubtraction() {
+    void testSubtraction(){
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(2);
@@ -110,7 +110,7 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should display result after pressing clear key")
-    void testClearKey() {
+    void testClearKey(){
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(2);
@@ -122,6 +122,22 @@ class CalculatorTest {
 
 
         String expected = "6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display intermediate result without pressing equals key")
+    void testBinaryOperationKey(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("x");
+
+        String expected = "4";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
