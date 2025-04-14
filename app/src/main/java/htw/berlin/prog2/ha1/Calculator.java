@@ -44,14 +44,13 @@ public class Calculator {
      * Werte sowie der aktuelle Operationsmodus zurückgesetzt, so dass der Rechner wieder
      * im Ursprungszustand ist.
      */
-    public void pressClearKey(int count) {
-        if (count <= 1){
-            screen = "0";
-        }
-        if (count >= 2) {
+    public void pressClearKey() {
+        if (screen.equals("0") || latestOperation.isEmpty()) {
             screen = "0";
             latestValue = 0.0;
             latestOperation = "";
+        } else {
+            screen = "0";
         }
     }
 
@@ -64,7 +63,11 @@ public class Calculator {
      * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
-    public void pressBinaryOperationKey(String operation)  {
+    public void pressBinaryOperationKey(String operation) {
+        if (!latestOperation.isEmpty()) {
+            pressEqualsKey();
+        }
+
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
     }
@@ -123,6 +126,8 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
+        if (latestOperation.isEmpty()) return;
+
         var result = switch(latestOperation) {
             case "+" -> latestValue + Double.parseDouble(screen);
             case "-" -> latestValue - Double.parseDouble(screen);
