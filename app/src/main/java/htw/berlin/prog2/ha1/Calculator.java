@@ -44,10 +44,15 @@ public class Calculator {
      * Werte sowie der aktuelle Operationsmodus zurückgesetzt, so dass der Rechner wieder
      * im Ursprungszustand ist.
      */
-    public void pressClearKey() {
-        screen = "0";
-        latestOperation = "";
-        latestValue = 0.0;
+    public void pressClearKey(int count) {
+        if (count <= 1){
+            screen = "0";
+        }
+        if (count >= 2) {
+            screen = "0";
+            latestValue = 0.0;
+            latestOperation = "";
+        }
     }
 
     /**
